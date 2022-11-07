@@ -1,11 +1,33 @@
 #defines classes
 from tkinter import E
 
+#defines gate class
+class gate(direction, direction_to):
+
+    def __innit__(self, direction, direction_to):
+        self.direction_to = direction_to
+        self.direction = direction
+
+#defines level class
+class level():
+    def __innit__(self):
+        self.name = ("")
+
+    #level setup function
+    def setup(self, name, directions, description):
+        self.name = name
+        self.directions = directions
+        self.description = description
+
+#initialises levels
+start_area = level()
+deep_forest_area = level()
 
 class player():
     health = 100
     name = ""
-    location = "start point"
+    location = start_area
+
     def __innit__(self, health, name):
         self.health = health
         self.name = name
@@ -13,6 +35,9 @@ class player():
     
     def do_damage(self):
         pass
+
+    def move(self, level):
+        self.location = level
 
 class sword():
     damagetype= ""
@@ -107,9 +132,6 @@ def forest_sequence():
             else:
                 print("you already have your sword")
 
-        elif user_input== "forward":
-            player.location = 
-
         #inputs other than defined continues loop
         else:
             print("incorrect input")
@@ -123,11 +145,32 @@ def forest_sequence():
     else:
         pass
 
-#starts sword squence
-sword_sequence()
+#defines gates
+gate1 = gate("north", deep_forest_area)
+start_area.setup("forest", gate1, "You are in a dusk lit forest surrounded by trees. The only direction is deeper into the forest")
 
-#starts forest sequence
-forest_sequence()      
+gate1 = gate("south", start_area)
+start_area.setup("deep forest", gate1, "You are in a seemingly endless tunnel of dark oak trees")
+
+print("what is your name?")
+player.name = input(">")
+
+print("(type help for commands)")
+
+while user_input != "exit":
+    print(start_area.description)
+    #sword_sequence()
+    user_input = input(">")
+
+    for d in player.location.directions:
+        player.move(d.level)
+
+
+
+    else:
+        print("incorrect input")
+        continue
+
 
 
 
